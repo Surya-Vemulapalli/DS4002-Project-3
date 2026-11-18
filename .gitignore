@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project: listing photos are copyrighted - never commit them
+DATA/photos/
+*.part

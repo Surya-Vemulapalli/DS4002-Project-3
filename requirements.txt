@@ -1,0 +1,20 @@
+# Python 3.11 (Python 3.14 is not supported by the PyTorch XPU build).
+# Create the environment from the repo root:
+#   py -3.11 -m venv .venv
+#   .venv\Scripts\python.exe -m pip install -r requirements.txt
+#
+# torch/torchvision are the Intel GPU ("xpu") builds, served from PyTorch's own index.
+# On a machine without an Intel GPU you can instead install the CPU builds
+# (torch==2.15.0, torchvision==0.29.2 from the default index) and run 03 with --device cpu.
+--extra-index-url https://download.pytorch.org/whl/xpu
+
+torch==2.15.0+xpu
+torchvision==0.29.2+xpu
+pyiqa==0.1.16
+pandas==3.1.1
+numpy==2.4.6
+statsmodels==0.15.0
+patsy==1.0.3
+scipy==1.17.1
+requests==2.34.2
+pillow==13.0.0
