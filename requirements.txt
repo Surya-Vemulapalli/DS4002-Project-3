@@ -18,3 +18,4 @@ patsy==1.0.3
 scipy==1.17.1
 requests==2.34.2
 pillow==13.0.0
+matplotlib==3.11.2
