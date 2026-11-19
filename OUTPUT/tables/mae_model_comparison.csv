@@ -1,0 +1,4 @@
+model,n_test,test_MAE_usd,test_MedAE_usd,test_R2_log_price,MAE_change_vs_M1,boot_CI_low,boot_CI_high
+M1 baseline,394,93.1119,43.4279,0.5931,,,
+M2 + photo scores,394,91.6272,44.5133,0.6028,-1.4846,-2.9112,-0.0101
+M3 + photo x borough,394,92.6218,43.0614,0.5947,-0.4901,-3.4657,2.3812

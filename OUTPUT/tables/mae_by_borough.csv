@@ -1,0 +1,5 @@
+borough,n_test,MAE_m1,MAE_m2,MAE_m3,M2_minus_M1,M3_minus_M1
+Manhattan,101,159.74,157.6,159.25,-2.14,-0.49
+Brooklyn,105,99.49,98.25,100.11,-1.23,0.63
+Queens,90,59.66,59.16,58.89,-0.49,-0.77
+Bronx/Staten Island,98,48.34,46.34,46.91,-1.99,-1.43
