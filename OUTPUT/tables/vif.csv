@@ -1,0 +1,14 @@
+variable,VIF
+private_room,5.506
+bedrooms,2.691
+bathrooms,1.509
+shared_bath,1.687
+accommodates,2.083
+brooklyn,1.539
+queens,1.583
+bronx_si,1.594
+min30,1.257
+z_musiq_koniq,1.801
+z_musiq_ava,1.658
+z_clipiqa,1.487
+private_room:bedrooms,4.26

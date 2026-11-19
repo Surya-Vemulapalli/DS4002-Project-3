@@ -1,0 +1,5 @@
+Criterion,Result,Met?
+VIF of photo scores < 5,max VIF = 1.80,True
+Partial F-test p < 0.05,"F(3, 1564) = 5.69, p = 0.0007143",True
+Test ΔR² ≥ 0.05,ΔR² = 0.0097 (M1 0.5931 → M2 0.6028),False
+95% bootstrap CI excludes 0,"[-0.0001, 0.0183]",False
