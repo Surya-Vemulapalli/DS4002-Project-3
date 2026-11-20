@@ -2,15 +2,17 @@
 run_all.py
 
 PURPOSE
-    Run the preprocessing, model-fitting and figure pipeline in order:
+    Run the preprocessing, model-fitting, figure and evaluation pipeline in order:
         01_sample_and_download_photos.py -> 02_score_photos.py
         -> 03_build_analysis_data.py -> 04_fit_models.py -> 05_plot_photo_scores.py
+        -> 07_evaluate_models.py
     Stops at the first script that fails.
-    06_statistical_tests.ipynb is a notebook and is run separately (see its first cell).
+    06_statistical_tests.ipynb is a notebook and is run separately (see its first cell);
+    07 does not depend on it.
 
 OPTIONS
     --skip-photos   Skip 01-03 and start from the existing
-                    DATA/final/analysis_data.csv (runs 04 and 05 only).
+                    DATA/final/analysis_data.csv (runs 04, 05 and 07 only).
     --device        auto | xpu | cpu, passed to 02_score_photos.py (default auto).
 
 INPUTS / OUTPUTS
@@ -44,7 +46,7 @@ def run(script: str, extra: list[str] | None = None) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the pipeline scripts 01-05 in order.")
+    parser = argparse.ArgumentParser(description="Run the pipeline scripts 01-05 and 07 in order.")
     parser.add_argument("--skip-photos", action="store_true",
                         help="skip 01-03 and start from the existing DATA/final/analysis_data.csv")
     parser.add_argument("--device", choices=["auto", "xpu", "cpu"], default="auto",
@@ -60,6 +62,7 @@ def main() -> None:
         run("03_build_analysis_data.py")
     run("04_fit_models.py")
     run("05_plot_photo_scores.py")
+    run("07_evaluate_models.py")
 
 
 if __name__ == "__main__":
