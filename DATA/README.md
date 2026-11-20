@@ -45,15 +45,19 @@ The data come from Inside Airbnb's New York City listings file [4], downloaded i
 The final dataset has the same number of listings in each borough group: 491–496, after the photo drops. It is 53% entire homes and 47% private rooms. Nightly prices range from $29 to $11,029 (median $160).
 
 ### Changes since MI2
-The goal and research question are unchanged. Some data details changed as the project progressed:
-- **No outlier trimming.**
-  - MI2 described a cleaned set of 18,631 listings with extreme prices trimmed.
-  - The final pipeline instead keeps every listing with a price and the required fields (18,767). It then takes one listing per host and samples within borough groups.
-  - Extreme prices were kept; the log transform reduces their influence.
-- **Sampling.** MI2 planned a simple random sample of about 2,000 listings. The final sample is stratified (500 per borough group) and limited to one listing per host. This gives each borough group enough listings for the photo × borough interactions and keeps any one host from appearing more than once.
-- **Extra variables.** `shared_bath` (the bathroom is shared) and `min30` (the minimum stay is 30+ nights) were added as controls.
-- **Renamed score columns.** MI2's `musiq_technical`, `musiq_aesthetic` and `clip_iqa` are named `musiq_koniq`, `musiq_ava` and `clipiqa` in the data files, after the pretrained models that produce them.
-- **Raw data in the repository.** MI2 said the repository would hold only our cleaned subset and photo scores. The raw file is now included in `raw/` so the full pipeline can be reproduced from the initial data (see [License](#license)).
+The goal, research question, data source and photo-scoring models are unchanged from MI2. The following details changed as the project progressed; everything else in this README describes the data as it is now.
+
+| Topic | MI2 | Now | Why |
+|---|---|---|---|
+| Cleaned listing pool | 18,631 listings: entire homes and private rooms with a price, extreme price outliers trimmed | 18,767 listings: entire homes and private rooms with a price, bedrooms, bathrooms and minimum nights. **No outlier trimming**; prices run up to $11,029 in the final sample | The log transform already limits the influence of extreme prices, and keeping them avoids an arbitrary cut-off |
+| Missing bedrooms / bathrooms | Drop after sampling (<0.5% of listings) | Dropped **before** sampling, along with missing minimum nights | Sampled listings would otherwise be lost later, pushing the final N below 2,000 |
+| Sampling | Simple random sample of about 2,000 | **One random listing per host** (9,518 left), then a **stratified sample of 500 per borough group** (Manhattan, Brooklyn, Queens, Bronx + Staten Island) | Each borough group has enough listings to estimate the photo × borough interactions, and no host appears twice |
+| Final sample size | About 2,000 | **1,972**: 28 listings (1.4%) dropped because their photo no longer exists. Training 1,578, test 394 | Photos deleted from Airbnb since the scrape. Dropped listings were slightly pricier (mean log price 5.30 vs 5.14) and less often in the Bronx (7% vs 18%), but with only 28 dropped this has little effect (`OUTPUT/tables/dropped_photo_check.csv`) |
+| Control variables | Room type, bedrooms, bathrooms, guest capacity, borough, room type × bedrooms | Adds **`shared_bath`** (the bathroom is shared) and **`min30`** (minimum stay of 30+ nights) | 23% of sampled listings have a shared bath and 77% require 30+ nights, and both affect price |
+| Photo-score variables | `musiq_technical`, `musiq_aesthetic`, `clip_iqa` | Renamed **`musiq_koniq`**, **`musiq_ava`**, **`clipiqa`**, after the pretrained models. **Standardized** versions (`z_…`) added, using the training set's mean and SD only | Standardizing puts the three scores on one scale (effect per 1 SD) without leaking test-set information |
+| Models | Baseline, and one expanded model with photo scores *and* photo × borough interactions | Three nested models: **M1** baseline, **M2** = M1 + photo scores, **M3** = M2 + photo × borough interactions | M2 vs M1 isolates the main photo effect; M3 tests the borough differences separately |
+| Explanatory plots | Median price by borough ($265 Manhattan, $156 Brooklyn, $108 Bronx, $106 Staten Island), and by bedrooms and room type | Same two plots, recomputed on the 18,767-listing pool: $255, $155, $107, $105. Two photo-score plots added | The cleaned pool changed (no outlier trimming) |
+| Raw data in the repository | Hold only our cleaned subset and photo scores, since Inside Airbnb asks users not to republish raw data | Raw file **included** in `raw/` | The course requires the initial data so the full pipeline can be reproduced (see [License](#license)) |
 
 ## Provenance
 
