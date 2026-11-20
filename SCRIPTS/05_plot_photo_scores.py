@@ -1,5 +1,5 @@
 """
-06_plot_photo_scores.py
+05_plot_photo_scores.py
 
 PURPOSE
     Descriptive figures of the three photo-quality scores (no relationship with
@@ -16,7 +16,7 @@ OUTPUTS
     OUTPUT/figures/photo_scores_by_borough.png
 
 HOW TO RUN (from the repo root)
-    .venv\\Scripts\\python.exe SCRIPTS/06_plot_photo_scores.py
+    .venv\\Scripts\\python.exe SCRIPTS/05_plot_photo_scores.py
 
 APPROXIMATE RUNTIME
     A few seconds.

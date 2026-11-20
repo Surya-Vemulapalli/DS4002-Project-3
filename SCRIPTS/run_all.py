@@ -2,15 +2,16 @@
 run_all.py
 
 PURPOSE
-    Run the preprocessing and model-fitting pipeline in order:
-        02_sample_and_download_photos.py -> 03_score_photos.py
-        -> 04_build_analysis_data.py -> 05_fit_models.py
+    Run the preprocessing, model-fitting and figure pipeline in order:
+        01_sample_and_download_photos.py -> 02_score_photos.py
+        -> 03_build_analysis_data.py -> 04_fit_models.py -> 05_plot_photo_scores.py
     Stops at the first script that fails.
+    06_statistical_tests.ipynb is a notebook and is run separately (see its first cell).
 
 OPTIONS
-    --skip-photos   Skip 02-04 and fit models from the existing
-                    DATA/final/analysis_data.csv (runs 05 only).
-    --device        auto | xpu | cpu, passed to 03_score_photos.py (default auto).
+    --skip-photos   Skip 01-03 and start from the existing
+                    DATA/final/analysis_data.csv (runs 04 and 05 only).
+    --device        auto | xpu | cpu, passed to 02_score_photos.py (default auto).
 
 INPUTS / OUTPUTS
     See the header of each script.
@@ -43,21 +44,22 @@ def run(script: str, extra: list[str] | None = None) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the pipeline scripts 02-05 in order.")
+    parser = argparse.ArgumentParser(description="Run the pipeline scripts 01-05 in order.")
     parser.add_argument("--skip-photos", action="store_true",
-                        help="skip 02-04 and fit models from the existing DATA/final/analysis_data.csv")
+                        help="skip 01-03 and start from the existing DATA/final/analysis_data.csv")
     parser.add_argument("--device", choices=["auto", "xpu", "cpu"], default="auto",
-                        help="device for photo scoring in 03 (default auto)")
+                        help="device for photo scoring in 02 (default auto)")
     args = parser.parse_args()
 
     if args.skip_photos:
         if not Path("DATA/final/analysis_data.csv").exists():
             sys.exit("--skip-photos needs DATA/final/analysis_data.csv; run the full pipeline first.")
     else:
-        run("02_sample_and_download_photos.py")
-        run("03_score_photos.py", ["--device", args.device])
-        run("04_build_analysis_data.py")
-    run("05_fit_models.py")
+        run("01_sample_and_download_photos.py")
+        run("02_score_photos.py", ["--device", args.device])
+        run("03_build_analysis_data.py")
+    run("04_fit_models.py")
+    run("05_plot_photo_scores.py")
 
 
 if __name__ == "__main__":

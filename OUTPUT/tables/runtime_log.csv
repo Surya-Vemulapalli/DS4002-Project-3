@@ -1,3 +1,3 @@
 step,timestamp,device,n_items,n_new,download_seconds,total_seconds,scoring_seconds
-02_download,2026-11-16T15:20:29,n/a,2000,1972,117.0,143.0,
-03_score,2026-11-17T21:59:44,xpu (Intel(R) Arc(TM) 140V GPU (16GB)),1972,1972,,1137.1,1132.3
+01_download,2026-11-16T15:20:29,n/a,2000,1972,117.0,143.0,
+02_score,2026-11-17T21:59:44,xpu (Intel(R) Arc(TM) 140V GPU (16GB)),1972,1972,,1137.1,1132.3

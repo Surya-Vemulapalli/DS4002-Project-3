@@ -1,5 +1,5 @@
 """
-02_sample_and_download_photos.py
+01_sample_and_download_photos.py
 
 PURPOSE
     Draw the analysis sample of NYC Airbnb listings and download each listing's
@@ -26,7 +26,7 @@ OUTPUTS
     OUTPUT/tables/runtime_log.csv               (appended) runtime of this step
 
 HOW TO RUN (from the repo root)
-    .venv\\Scripts\\python.exe SCRIPTS/02_sample_and_download_photos.py
+    .venv\\Scripts\\python.exe SCRIPTS/01_sample_and_download_photos.py
 
 APPROXIMATE RUNTIME
     ~3-6 minutes for the first run (network-bound); seconds on rerun because
@@ -235,7 +235,7 @@ def main() -> None:
     print(f"Saved {SAMPLE_CSV} ({len(kept):,} rows)")
 
     # Append runtime to a shared log so the pipeline timing can be reported.
-    log = pd.DataFrame([{"step": "02_download", "timestamp": pd.Timestamp.now().isoformat(timespec="seconds"),
+    log = pd.DataFrame([{"step": "01_download", "timestamp": pd.Timestamp.now().isoformat(timespec="seconds"),
                          "device": "n/a", "n_items": len(sample), "n_new": n_ok,
                          "download_seconds": round(dl_seconds, 1), "total_seconds": round(time.time() - t0, 1),
                          "scoring_seconds": np.nan}])

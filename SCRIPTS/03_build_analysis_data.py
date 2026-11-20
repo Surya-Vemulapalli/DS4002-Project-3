@@ -1,5 +1,5 @@
 """
-04_build_analysis_data.py
+03_build_analysis_data.py
 
 PURPOSE
     Build the modelling dataset:
@@ -24,7 +24,7 @@ OUTPUTS
     OUTPUT/tables/standardization_params.csv   training mean/SD used for each score
 
 HOW TO RUN (from the repo root)
-    .venv\\Scripts\\python.exe SCRIPTS/04_build_analysis_data.py
+    .venv\\Scripts\\python.exe SCRIPTS/03_build_analysis_data.py
 
 APPROXIMATE RUNTIME
     A few seconds.

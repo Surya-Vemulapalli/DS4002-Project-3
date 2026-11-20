@@ -1,5 +1,5 @@
 """
-03_score_photos.py
+02_score_photos.py
 
 PURPOSE
     Score every sampled listing photo with three no-reference image-quality
@@ -30,7 +30,7 @@ OUTPUTS
     OUTPUT/tables/runtime_log.csv          (appended) device and runtime of this step
 
 HOW TO RUN (from the repo root)
-    .venv\\Scripts\\python.exe SCRIPTS/03_score_photos.py [--device auto|xpu|cpu]
+    .venv\\Scripts\\python.exe SCRIPTS/02_score_photos.py [--device auto|xpu|cpu]
 
 APPROXIMATE RUNTIME
     First run also downloads model weights (~0.5 GB, one time). Scoring ~2,000
@@ -171,7 +171,7 @@ def main() -> None:
     print(f"Scoring finished in {score_seconds:.1f}s: {n_ok} scored, {n_fail} failed on {device}")
 
     # Append this run's timing to the shared runtime log.
-    log = pd.DataFrame([{"step": "03_score", "timestamp": pd.Timestamp.now().isoformat(timespec="seconds"),
+    log = pd.DataFrame([{"step": "02_score", "timestamp": pd.Timestamp.now().isoformat(timespec="seconds"),
                          "device": f"{device} ({dev_name})", "n_items": len(todo), "n_new": n_ok,
                          "download_seconds": np.nan, "total_seconds": round(time.time() - t0, 1),
                          "scoring_seconds": round(score_seconds, 1)}])

@@ -1,5 +1,5 @@
 """
-05_fit_models.py
+04_fit_models.py
 
 PURPOSE
     Fit three nested OLS models of log nightly price on the TRAINING rows only,
@@ -8,7 +8,7 @@ PURPOSE
                          + borough + min30 + room type x bedrooms
         M2 photo model:  M1 + the three standardized photo scores
         M3 interaction:  M2 + each standardized photo score x borough
-    Dummy coding (see 04_build_analysis_data.py):
+    Dummy coding (see 03_build_analysis_data.py):
         private_room                (baseline Entire home/apt)
         brooklyn, queens, bronx_si  (baseline Manhattan)
     This script only FITS and SAVES the models. It runs no hypothesis tests,
@@ -23,7 +23,7 @@ OUTPUTS
     OUTPUT/models/model_specs.md                     formulas, number of parameters, training N
 
 HOW TO RUN (from the repo root)
-    .venv\\Scripts\\python.exe SCRIPTS/05_fit_models.py
+    .venv\\Scripts\\python.exe SCRIPTS/04_fit_models.py
 
 APPROXIMATE RUNTIME
     A few seconds.
