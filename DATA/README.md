@@ -17,7 +17,7 @@ DATA/
 
 ## Data summary
 
-The data come from Inside Airbnb's New York City listings file [4], downloaded in CSV format from its "Get the Data" page. The file is free and needs no account. It has 29,918 NYC listings with 90 columns describing each listing's host, location, property, price and reviews. From it, we drew a borough-balanced sample of 2,000 listings, downloaded each one's main photo, and scored the photo with three image-quality models: two MUSIQ models [1] and CLIP-IQA [2].
+The data come from Inside Airbnb's New York City listings file [4], downloaded in CSV format from its "Get the Data" page. The file is publicly available at no charge. It has 29,918 NYC listings with 90 columns describing each listing's host, location, property, price and reviews. From it, we drew a borough-balanced sample of 2,000 listings, downloaded each one's main photo, and scored the photo with three image-quality models: two MUSIQ models [1] and CLIP-IQA [2].
 
 | File | Rows | Columns | One row is… |
 |---|---|---|---|
