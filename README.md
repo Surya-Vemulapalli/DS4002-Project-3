@@ -6,9 +6,8 @@ This project tests whether the quality of an Airbnb listing's main photo is rela
 
 | Folder / file | What it holds |
 |---|---|
-| `listings.csv` | Raw input data: Inside Airbnb NYC listings, September 2026 scrape (29,918 listings). |
 | `SCRIPTS/` | All code, numbered in the order it runs (`01_` to `07_`), plus `run_all.py`, which runs every script except the notebook (06) in one go. |
-| `DATA/` | Data created by the scripts: the listing sample, the photo scores and the final analysis dataset. The downloaded photos also go here, but they are **not** in the repository (see below). |
+| `DATA/` | All data: the raw Inside Airbnb file (`DATA/raw/listings.csv`, 29,918 listings), the listing sample, the photo scores and the final analysis dataset. `DATA/README.md` holds the metadata: provenance, license, ethics, data dictionary and plots. The downloaded photos also go here, but they are **not** in the repository (see below). |
 | `OUTPUT/` | Results: fitted models, tables and figures. |
 | `requirements.txt` | Python packages, with the exact versions used. |
 | `LICENSE` | License for this repository. |
@@ -43,19 +42,21 @@ DS4002-Project-3/
 ├── LICENSE
 ├── .gitignore                         Files git should not track (photos, virtual environment)
 ├── requirements.txt                   Pinned Python package versions
-├── listings.csv                       Raw Inside Airbnb NYC data (input)
 │
 ├── SCRIPTS/
 │   ├── 01_sample_and_download_photos.py   Filter listings, draw the sample, download photos
 │   ├── 02_score_photos.py                 Score each photo with MUSIQ-KonIQ, MUSIQ-AVA, CLIP-IQA
 │   ├── 03_build_analysis_data.py          Clean variables, train/test split, standardize scores
 │   ├── 04_fit_models.py                   Fit regression models M1, M2, M3 on the training set
-│   ├── 05_plot_photo_scores.py            Figures of the photo-score distributions
+│   ├── 05_plot_explanatory.py             Explanatory figures: price by borough/bedrooms, photo-score distributions
 │   ├── 06_statistical_tests.ipynb         VIF, partial F-test, t-tests, test-set ΔR², bootstrap CI
 │   ├── 07_evaluate_models.py              Test-set error (MAE) by model and borough; M3 photo effects by borough
 │   └── run_all.py                         Runs scripts 01–05 and 07 in order
 │
 ├── DATA/
+│   ├── README.md                      Data metadata: summary, provenance, license, ethics, data dictionary, plots
+│   ├── raw/
+│   │   └── listings.csv               Raw Inside Airbnb NYC data, Sept 2026 scrape (initial data)
 │   ├── photos/                        Downloaded listing photos (NOT in the repo; created by script 01)
 │   ├── intermediate/
 │   │   ├── sample_listings.csv        The sampled listings (personal host fields removed)
@@ -84,6 +85,8 @@ DS4002-Project-3/
     │   ├── mae_by_borough.csv         Test-set MAE for each model within each borough group (script 07)
     │   └── photo_effects_by_borough.csv Effect of each photo score on price in each borough, from M3 (script 07)
     └── figures/
+        ├── price_by_borough.png           Median nightly price by borough (script 05)
+        ├── price_by_bedrooms_room_type.png Median nightly price by bedrooms and room type (script 05)
         ├── photo_score_distributions.png  Histograms of the three photo scores (script 05)
         ├── photo_scores_by_borough.png    Photo scores by borough group (script 05)
         ├── mae_model_comparison.png       Bar chart of test-set MAE by model (script 07)
@@ -96,7 +99,7 @@ DS4002-Project-3/
 There are two ways to reproduce the results:
 
 - **Option A (fast, exact; about 5 minutes):** start from the committed `DATA/final/analysis_data.csv`. You skip the photo download and scoring and get exactly the same models and test results.
-- **Option B (full rebuild; about 30–60 minutes):** start from `listings.csv`, download the photos again and score them yourself.
+- **Option B (full rebuild; about 30–60 minutes):** start from `DATA/raw/listings.csv`, download the photos again and score them yourself.
 
 Option B may not match the committed results exactly. Airbnb hosts delete or replace photos over time, so a later download can lose a few more listings or get a different photo. Scores computed on CPU also differ from the GPU scores in about the 4th decimal place.
 
@@ -145,10 +148,10 @@ PY SCRIPTS/run_all.py --skip-photos
 ```
 This takes under a minute and runs:
 - script 04, which fits M1, M2 and M3 and saves them to `OUTPUT/models/`;
-- script 05, which saves the two photo-score figures;
+- script 05, which saves the four explanatory figures (price and photo scores);
 - script 07, which saves the test-set error and borough-effect tables and figures.
 
-**Option B (full rebuild from `listings.csv`):**
+**Option B (full rebuild from `DATA/raw/listings.csv`):**
 ```bash
 PY SCRIPTS/run_all.py --device auto
 ```
@@ -167,7 +170,9 @@ Use `--device cpu` if you have no Intel GPU, or if the GPU option gives an error
    - Builds the model variables and makes the 80/20 train/test split.
    - Standardizes the photo scores using the training set.
 4. **`04_fit_models.py`** (seconds): fits M1, M2 and M3 on the training rows with HC3 robust standard errors.
-5. **`05_plot_photo_scores.py`** (seconds): saves the photo-score figures.
+5. **`05_plot_explanatory.py`** (about 10 seconds): saves four explanatory figures.
+   - Median nightly price by borough, and by bedrooms and room type, for the 18,767 eligible listings.
+   - The photo-score distributions for the final sample.
 6. **`07_evaluate_models.py`** (about 10 seconds)
    - Predicts prices for the 394 test listings with each model and measures the error in dollars (MAE).
    - Computes a 95% bootstrap CI for each model's improvement over M1.

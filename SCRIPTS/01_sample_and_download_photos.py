@@ -16,7 +16,7 @@ PURPOSE
          comparison of dropped vs kept listings.
 
 INPUTS
-    listings.csv                                (repo root; Inside Airbnb NYC, Sept 2026 scrape)
+    DATA/raw/listings.csv                       Inside Airbnb NYC, Sept 2026 scrape (see DATA/README.md)
 
 OUTPUTS
     DATA/photos/<id>.jpg                        downloaded photos (git-ignored; copyrighted)
@@ -51,7 +51,7 @@ SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
 
-INPUT_CSV = Path("listings.csv")
+INPUT_CSV = Path("DATA/raw/listings.csv")
 PHOTO_DIR = Path("DATA/photos")
 SAMPLE_CSV = Path("DATA/intermediate/sample_listings.csv")
 TABLE_DIR = Path("OUTPUT/tables")
@@ -148,7 +148,7 @@ def main() -> None:
     # Load the listings and apply the row filters, printing counts each step.
     # -----------------------------------------------------------------------
     df = pd.read_csv(INPUT_CSV, low_memory=False)
-    print(f"Loaded listings.csv: {len(df):,} rows")
+    print(f"Loaded {INPUT_CSV}: {len(df):,} rows")
 
     df = df[df["room_type"].isin(KEEP_ROOM_TYPES)]
     print(f"After keeping room_type in {KEEP_ROOM_TYPES}: {len(df):,} rows")

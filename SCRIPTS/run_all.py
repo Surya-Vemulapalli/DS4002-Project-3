@@ -4,7 +4,7 @@ run_all.py
 PURPOSE
     Run the preprocessing, model-fitting, figure and evaluation pipeline in order:
         01_sample_and_download_photos.py -> 02_score_photos.py
-        -> 03_build_analysis_data.py -> 04_fit_models.py -> 05_plot_photo_scores.py
+        -> 03_build_analysis_data.py -> 04_fit_models.py -> 05_plot_explanatory.py
         -> 07_evaluate_models.py
     Stops at the first script that fails.
     06_statistical_tests.ipynb is a notebook and is run separately (see its first cell);
@@ -61,7 +61,7 @@ def main() -> None:
         run("02_score_photos.py", ["--device", args.device])
         run("03_build_analysis_data.py")
     run("04_fit_models.py")
-    run("05_plot_photo_scores.py")
+    run("05_plot_explanatory.py")
     run("07_evaluate_models.py")
 
 
