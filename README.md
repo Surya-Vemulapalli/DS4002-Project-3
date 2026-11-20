@@ -10,7 +10,7 @@ This project tests whether the quality of an Airbnb listing's main photo is rela
 | `DATA/` | All data: the raw Inside Airbnb file (`DATA/raw/listings.csv`, 29,918 listings), the listing sample, the photo scores and the final analysis dataset. `DATA/README.md` holds the metadata: provenance, license, ethics, data dictionary and plots. The downloaded photos also go here, but they are **not** in the repository (see below). |
 | `OUTPUT/` | Results: fitted models, tables and figures. |
 | `requirements.txt` | Python packages, with the exact versions used. |
-| `LICENSE` | License for this repository. |
+| `LICENSE.md` | License for this repository. |
 
 **Photos are not included.** Listing photos are copyrighted by their owners, so `DATA/photos/` is listed in `.gitignore`. Script 01 downloads them again from Airbnb's servers.
 
@@ -39,7 +39,7 @@ This project tests whether the quality of an Airbnb listing's main photo is rela
 ```
 DS4002-Project-3/
 ├── README.md                          This file
-├── LICENSE
+├── LICENSE.md                         MIT License
 ├── .gitignore                         Files git should not track (photos, virtual environment)
 ├── requirements.txt                   Pinned Python package versions
 │
@@ -51,6 +51,8 @@ DS4002-Project-3/
 │   ├── 05_plot_explanatory.py             Explanatory figures: price by borough/bedrooms, photo-score distributions
 │   ├── 06_statistical_tests.ipynb         VIF, partial F-test, t-tests, test-set ΔR², bootstrap CI
 │   ├── 07_evaluate_models.py              Test-set error (MAE) by model and borough; M3 photo effects by borough
+│   ├── 08_make_photo_review.py            Draws 100 random photos and builds the review page
+│   ├── 09_photo_review_robustness.py      Summarizes the review and refits the models without flagged photos
 │   └── run_all.py                         Runs scripts 01–05 and 07 in order
 │
 ├── DATA/
@@ -65,6 +67,7 @@ DS4002-Project-3/
 │       └── analysis_data.csv          Final dataset used for modelling (1,972 listings)
 │
 └── OUTPUT/
+    ├── photo_review.html              Manual photo review page (script 08)
     ├── models/
     │   ├── m1.pickle                  M1 baseline model (listing details only)
     │   ├── m2.pickle                  M2 photo model (M1 + three photo scores)
@@ -83,7 +86,10 @@ DS4002-Project-3/
     │   ├── bootstrap_samples.csv      1,000 bootstrap ΔR² values (notebook 06)
     │   ├── mae_model_comparison.csv   Test-set MAE, median error and R² by model, with bootstrap CIs (script 07)
     │   ├── mae_by_borough.csv         Test-set MAE for each model within each borough group (script 07)
-    │   └── photo_effects_by_borough.csv Effect of each photo score on price in each borough, from M3 (script 07)
+    │   ├── photo_effects_by_borough.csv Effect of each photo score on price in each borough, from M3 (script 07)
+    │   ├── photo_review_results.csv   Label for each of the 100 reviewed photos (from the review page)
+    │   ├── photo_review_summary.csv   Count and % of each review label (script 09)
+    │   └── photo_review_robustness.csv F-test and ΔR² with and without flagged photos (script 09)
     └── figures/
         ├── price_by_borough.png           Median nightly price by borough (script 05)
         ├── price_by_bedrooms_room_type.png Median nightly price by bedrooms and room type (script 05)
@@ -204,3 +210,11 @@ To run the notebook locally instead, install Jupyter (`PY -m pip install jupyter
 | Test-set MAE, M1 / M2 / M3 (script 07) | $93.11 / $91.63 / $92.62* |
 
 \* Exact for Option A. For Option B these can shift a little if more photos have disappeared since the original download.
+
+### Step 7: Reproduce the manual photo review
+
+1. Run `PY SCRIPTS/08_make_photo_review.py`. It randomly picks 100 listings (seed 42) and creates the review page `OUTPUT/photo_review.html`.
+2. Open `OUTPUT/photo_review.html` in a web browser (it needs internet to load the photos). Click one label for each photo, then click **Download results** and move `photo_review_results.csv` into `OUTPUT/tables/`.
+3. Run `PY SCRIPTS/09_photo_review_robustness.py`. It summarizes the labels and refits M1 and M2 without the flagged photos.
+
+To reproduce our exact numbers, skip steps 1–2 and run only step 3, which uses our committed `OUTPUT/tables/photo_review_results.csv`. Expected: 4 of 100 photos flagged; without them, the F-test p ≈ 0.0007 and test ΔR² = 0.0088.

@@ -17,7 +17,7 @@ DATA/
 
 ## Data summary
 
-The data come from Inside Airbnb's New York City listings file [4], downloaded in CSV format from its "Get the Data" page. The file is free and needs no account. It has 29,918 NYC listings with 90 columns describing each listing's host, location, property, price and reviews. From it, we drew a borough-balanced sample of 2,000 listings, downloaded each one's main photo, and scored the photo with three image-quality models: two MUSIQ models [1] and CLIP-IQA [2].
+The data come from Inside Airbnb's New York City listings file [4], downloaded in CSV format from its "Get the Data" page. The file is publicly available at no charge. It has 29,918 NYC listings with 90 columns describing each listing's host, location, property, price and reviews. From it, we drew a borough-balanced sample of 2,000 listings, downloaded each one's main photo, and scored the photo with three image-quality models: two MUSIQ models [1] and CLIP-IQA [2].
 
 | File | Rows | Columns | One row is… |
 |---|---|---|---|
@@ -108,7 +108,7 @@ The goal, research question, data source and photo-scoring models are unchanged 
 - **Limits of the photo scores.**
   - The models were trained on general photo collections, not real-estate photos. They may favour particular styles, such as professional or brightly lit photos, and their scores are model estimates, not human ratings.
   - They also cannot tell whether a photo is authentic. Heavily edited photos, virtual staging or computer-generated renderings could score as high quality without reflecting the real space.
-  - MI2 planned a manual review of 100 random photos to flag these, rerunning the models without flagged photos if more than a few percent were affected.
+  - We manually reviewed 100 randomly sampled photos (seed 42; SCRIPTS/08_make_photo_review.py). 96 were real photos of the listing. 4 (4%) showed something other than the space, and none were renderings, virtual staging or heavily edited. Refitting the models without these 4 listings left the results essentially unchanged (F-test p = 0.0007 in both cases; test ΔR² 0.0097 vs. 0.0088; SCRIPTS/09_photo_review_robustness.py).
 - **Use of results.**
   - The analysis is observational, so we do not claim that better photos *cause* higher prices.
   - Results should not be used to judge individual hosts.
