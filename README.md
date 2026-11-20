@@ -10,7 +10,7 @@ This project tests whether the quality of an Airbnb listing's main photo is rela
 | `DATA/` | All data: the raw Inside Airbnb file (`DATA/raw/listings.csv`, 29,918 listings), the listing sample, the photo scores and the final analysis dataset. `DATA/README.md` holds the metadata: provenance, license, ethics, data dictionary and plots. The downloaded photos also go here, but they are **not** in the repository (see below). |
 | `OUTPUT/` | Results: fitted models, tables and figures. |
 | `requirements.txt` | Python packages, with the exact versions used. |
-| `LICENSE` | License for this repository. |
+| `LICENSE.md` | License for this repository. |
 
 **Photos are not included.** Listing photos are copyrighted by their owners, so `DATA/photos/` is listed in `.gitignore`. Script 01 downloads them again from Airbnb's servers.
 
@@ -39,7 +39,7 @@ This project tests whether the quality of an Airbnb listing's main photo is rela
 ```
 DS4002-Project-3/
 ├── README.md                          This file
-├── LICENSE
+├── LICENSE.md
 ├── .gitignore                         Files git should not track (photos, virtual environment)
 ├── requirements.txt                   Pinned Python package versions
 │
