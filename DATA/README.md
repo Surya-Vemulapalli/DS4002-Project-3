@@ -104,7 +104,7 @@ The goal and research question are unchanged. Some data details changed as the p
 - **Limits of the photo scores.**
   - The models were trained on general photo collections, not real-estate photos. They may favour particular styles, such as professional or brightly lit photos, and their scores are model estimates, not human ratings.
   - They also cannot tell whether a photo is authentic. Heavily edited photos, virtual staging or computer-generated renderings could score as high quality without reflecting the real space.
-  - MI2 planned a manual review of 100 random photos to flag these, rerunning the models without flagged photos if more than a few percent were affected.
+  - We manually reviewed 100 randomly sampled photos (seed 42; SCRIPTS/08_make_photo_review.py). 96 were real photos of the listing. 4 (4%) showed something other than the space, and none were renderings, virtual staging or heavily edited. Refitting the models without these 4 listings left the results essentially unchanged (F-test p = 0.0007 in both cases; test ΔR² 0.0097 vs. 0.0088; SCRIPTS/09_photo_review_robustness.py).
 - **Use of results.**
   - The analysis is observational, so we do not claim that better photos *cause* higher prices.
   - Results should not be used to judge individual hosts.
