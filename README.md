@@ -87,6 +87,7 @@ DS4002-Project-3/
     │   ├── mae_model_comparison.csv   Test-set MAE, median error and R² by model, with bootstrap CIs (script 07)
     │   ├── mae_by_borough.csv         Test-set MAE for each model within each borough group (script 07)
     │   ├── photo_effects_by_borough.csv Effect of each photo score on price in each borough, from M3 (script 07)
+    │   ├── photo_review_sample.csv    The 100 randomly sampled listing IDs (script 08)
     │   ├── photo_review_results.csv   Label for each of the 100 reviewed photos (from the review page)
     │   ├── photo_review_summary.csv   Count and % of each review label (script 09)
     │   └── photo_review_robustness.csv F-test and ΔR² with and without flagged photos (script 09)
