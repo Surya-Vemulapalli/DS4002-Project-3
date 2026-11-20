@@ -222,3 +222,6 @@ __marimo__/
 # Project: listing photos are copyrighted - never commit them
 DATA/photos/
 *.part
+
+# macOS system files
+.DS_Store
