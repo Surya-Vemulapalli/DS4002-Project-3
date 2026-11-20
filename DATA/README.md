@@ -87,7 +87,7 @@ The goal, research question, data source and photo-scoring models are unchanged 
   > Inside Airbnb, "New York City Airbnb listings data, September 2026," Housing Justice Data Lab, 2026. [Data set]. Available: https://insideairbnb.com/get-the-data/
 - **Including the raw file.** Inside Airbnb's data policies [8] ask users not to republish its raw data. We include `raw/listings.csv`, unchanged, only so this class project can be reproduced from the initial data, as the course requires. Anyone reusing this data should download it from Inside Airbnb directly rather than from this repository.
 - **Listing photos** are copyrighted by their hosts and photographers and are not covered by the CC BY 4.0 license. They are used only to compute quality scores and are **not** redistributed: `DATA/photos/` is git-ignored.
-- **Derived data and code** created by this project (the sample, scores, model variables and scripts) are released under this repository's [MIT License](../LICENSE). This is subject to the CC BY 4.0 attribution above for the underlying listing data.
+- **Derived data and code** created by this project (the sample, scores, model variables and scripts) are released under this repository's [MIT License](../LICENSE.md) This is subject to the CC BY 4.0 attribution above for the underlying listing data.
 
 ## Ethical statements
 
